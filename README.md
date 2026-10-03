@@ -2,6 +2,8 @@
 
 A [Sarde](https://github.com/getsarde/sarde) site template for publishing course material: lessons, assignments, hands-on labs, and announcements. Clone it, replace the sample courses with your own, and build a static site you can host anywhere.
 
+**Live demo:** [getsarde.github.io/course-template](https://getsarde.github.io/course-template/)
+
 ## What's included
 
 - **Two sample courses** in `content/courses/`, Web Fundamentals and Go Essentials. Each course is a tab in the sidebar's course switcher, with lessons and an `assignments/` group.
@@ -49,6 +51,16 @@ You need the `sarde` command. The [Getting Started guide](https://getsarde.githu
 4. Update `content/announcements.md` and the course links in `content/_index.md`.
 
 Lessons, assignments, and lab pages include a "Replace this with..." note in their opening paragraph. Search for that phrase to find sample text you haven't replaced yet.
+
+## Publish on GitHub Pages
+
+The template includes a GitHub Actions workflow, `.github/workflows/deploy.yml`, that builds the site and publishes it to GitHub Pages on every push to `main`.
+
+1. Push your copy of the template to a GitHub repository.
+2. In the repository, open **Settings > Pages** and set **Source** to **GitHub Actions**.
+3. Push to `main`, or run the workflow from the **Actions** tab.
+
+The site is published at `https://<owner>.github.io/<repository>/`. The workflow reads that address from GitHub Pages and passes it to Sarde, so `sarde.yaml` needs no deployment settings, and a custom domain set under **Settings > Pages** works the same way. Until Pages is enabled, the workflow fails. Delete the workflow file if you host the site elsewhere; [Deploying](https://getsarde.github.io/sarde/docs/start-here/deploying/) covers other hosts.
 
 ## Learn more
 
