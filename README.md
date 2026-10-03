@@ -6,9 +6,9 @@ A [Sarde](https://github.com/getsarde/sarde) site template for publishing course
 
 ## What's included
 
-- **Two sample courses** in `content/courses/`, Web Fundamentals and Python Essentials. Each course is a tab in the sidebar's course switcher, with lessons and an `assignments/` group.
+- **Two sample courses** in `content/courses/`, Web Fundamentals and Python Essentials. Each course is a tab in the sidebar's course switcher, with lessons, an `assignments/` group, and its own announcements and schedule pages.
 - **Labs** in `content/labs/`, grouped by course. Multi-step labs show a progress bar and prev/next links that stay inside the lab, and `hello-world` shows a lab that fits on one page.
-- **An announcements page** with a course schedule.
+- **A site-wide announcements page** for news that affects every course, plus a sample banner (in `sarde.yaml`) that appears only on one course's lessons and labs.
 - **A homepage** with a hero and links to each course.
 
 The sample pages use Sarde's Markdown extensions (tabs, steps, asides, collapsible panels, terminal blocks, file trees, a timeline) so you can see them in context. The [extensions guide](https://getsarde.github.io/sarde/docs/extensions/using-extensions/) lists every extension and its syntax.
@@ -47,10 +47,29 @@ You need the `sarde` command. The [Getting Started guide](https://getsarde.githu
 1. In `sarde.yaml`, set `site.title`, `site.description`, and `site.url`, and change the homepage hero text and buttons under `homepage.hero`.
 2. Replace the sample courses. Each directory in `content/courses/` is one course:
    - `_index.md` is the course overview. Its `title`, `description`, and `icon` appear in the course switcher.
+   - `announcements.md` and `schedule.md` hold the course's news and weekly plan, listed first in its sidebar. Each week in the schedule is titled with its topic and lists its dates, a guiding question, and an icon per item (lesson, lab, assignment, in class).
+   - The "Course info" card at the end of `_index.md` holds the instructor's contact details and office hours.
    - Each other `.md` file is a lesson. Set `sidebar.order` to control the lesson order.
    - `sidebar.badge` adds a label such as "Beginner" or "Assignment" next to an entry in the sidebar.
 3. Replace the sample labs. `content/labs/<course>/<lab>/` holds one lab: its `_index.md` is the lab introduction (with optional `learning_objectives`), and each step is a separate page ordered with `sidebar.order`.
-4. Update `content/announcements.md` and the course links in `content/_index.md`.
+4. Update `content/announcements.md`, the course links in `content/_index.md`, and the banners under `plugins.config.announcements` in `sarde.yaml`.
+
+### Long courses
+
+The sample schedules use a timeline that is always open, which reads well for a few weeks. For a full semester, a collapsible list keeps the page short: put each week in a `:::details` block titled with its topic, inside an `:::accordion(independent)`, and add `open` to the current week:
+
+```markdown
+:::accordion(independent)
+:::details[Week 1: HTML structure]
+- :icon[calendar] Sep 7 to 13
+- :icon[book-open] [HTML Basics](/courses/web-fundamentals/html-basics/)
+:::
+:::details[Week 2: CSS layout] open
+- :icon[calendar] Sep 14 to 20
+- :icon[book-open] [CSS Layout](/courses/web-fundamentals/css-layout/)
+:::
+:::
+```
 
 Lessons, assignments, and lab pages include a "Replace this with..." note in their opening paragraph. Search for that phrase to find sample text you haven't replaced yet.
 
