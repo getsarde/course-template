@@ -6,12 +6,14 @@ A [Sarde](https://github.com/getsarde/sarde) site template for publishing course
 
 ## What's included
 
-- **Two sample courses** in `content/courses/`, Web Fundamentals and Go Essentials. Each course is a tab in the sidebar's course switcher, with lessons and an `assignments/` group.
+- **Two sample courses** in `content/courses/`, Web Fundamentals and Python Essentials. Each course is a tab in the sidebar's course switcher, with lessons and an `assignments/` group.
 - **Labs** in `content/labs/`, grouped by course. Multi-step labs show a progress bar and prev/next links that stay inside the lab, and `hello-world` shows a lab that fits on one page.
 - **An announcements page** with a course schedule.
 - **A homepage** with a hero and links to each course.
 
 The sample pages use Sarde's Markdown extensions (tabs, steps, asides, collapsible panels, terminal blocks, file trees, a timeline) so you can see them in context. The [extensions guide](https://getsarde.github.io/sarde/docs/extensions/using-extensions/) lists every extension and its syntax.
+
+The code samples show what Sarde's code blocks can do: file titles, a terminal frame, line numbers, labelled line highlights, inserted and deleted lines, highlighted words, focused lines, a collapsed block, and tabbed code groups. The [code blocks guide](https://getsarde.github.io/sarde/docs/guides/code-blocks/) covers each option.
 
 ## Run the site
 
