@@ -6,15 +6,14 @@ themes:
   light: github-light
   dark: github-dark
 
-darkMode:
-  kind: selector
-  selector: '[data-theme="dark"]'
+# Dark mode follows the site theme. Sarde sets it, so there is no darkMode
+# entry here; change markdown.codeblocks.dark_mode_selector in sarde.yaml.
 
 # --- Toolbar ---
 copyButton: true
 fullscreenButton: true
 wrapButton: true
-themeToggleButton: false
+themeToggleButton: true
 languageBadge: true
 languageIconMode: none
 fileIcons: true

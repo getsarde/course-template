@@ -13,7 +13,7 @@ A [Sarde](https://github.com/getsarde/sarde) site template for publishing course
 
 The sample pages use Sarde's Markdown extensions (tabs, steps, asides, collapsible panels, terminal blocks, file trees, a timeline) so you can see them in context. The [extensions guide](https://getsarde.github.io/sarde/docs/extensions/using-extensions/) lists every extension and its syntax.
 
-The code samples show what Sarde's code blocks can do: file titles, a terminal frame, line numbers, labelled line highlights, inserted and deleted lines, highlighted words, focused lines, a collapsed block, and tabbed code groups. The [code blocks guide](https://getsarde.github.io/sarde/docs/guides/code-blocks/) covers each option.
+The code samples show what Sarde's code blocks can do: file titles, a terminal frame, line numbers, labelled line highlights, inserted and deleted lines, highlighted words, focused lines, a collapsed block, and tabbed code groups. Each block also has a toolbar button that switches it between light and dark on its own. The [code blocks guide](https://getsarde.github.io/sarde/docs/guides/code-blocks/) covers each option.
 
 ## Run the site
 
