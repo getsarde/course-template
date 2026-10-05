@@ -10,6 +10,7 @@ A [Sarde](https://github.com/getsarde/sarde) site template for publishing course
 - **Labs** in `content/labs/`, grouped by course. Multi-step labs show a progress bar and prev/next links that stay inside the lab, and `hello-world` shows a lab that fits on one page.
 - **A site-wide announcements page** for news that affects every course, plus a sample banner (in `sarde.yaml`) that appears only on one course's lessons and labs.
 - **A homepage** with a hero and links to each course.
+- **Quick navigation:** press <kbd>Ctrl</kbd>+<kbd>/</kbd> (<kbd>Cmd</kbd>+<kbd>/</kbd> on Mac) to jump to a page by name, through the Telescope plugin enabled in `sarde.yaml`.
 
 The sample pages use Sarde's Markdown extensions (tabs, steps, asides, collapsible panels, terminal blocks, file trees, a timeline) so you can see them in context. The [extensions guide](https://getsarde.github.io/sarde/docs/extensions/using-extensions/) lists every extension and its syntax.
 
