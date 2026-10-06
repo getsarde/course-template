@@ -11,6 +11,7 @@ A [Sarde](https://github.com/getsarde/sarde) site template for publishing course
 - **A site-wide announcements page** for news that affects every course, plus a sample banner (in `sarde.yaml`) that appears only on one course's lessons and labs.
 - **A homepage** with a hero and links to each course.
 - **Quick navigation:** press <kbd>Ctrl</kbd>+<kbd>/</kbd> (<kbd>Cmd</kbd>+<kbd>/</kbd> on Mac) to jump to a page by name, through the Telescope plugin enabled in `sarde.yaml`.
+- **Reading aids** for long lessons and labs: a scroll-to-top button, a reading progress bar with an estimated reading time, and focus mode (<kbd>Shift</kbd>+<kbd>F</kbd>), which hides the sidebar and table of contents.
 
 The sample pages use Sarde's Markdown extensions (tabs, steps, asides, collapsible panels, terminal blocks, file trees, a timeline) so you can see them in context. The [extensions guide](https://getsarde.github.io/sarde/docs/extensions/using-extensions/) lists every extension and its syntax.
 
