@@ -45,50 +45,17 @@ You need the `sarde` command. The [Getting Started guide](https://getsarde.githu
 
 ## Make it yours
 
-1. In `sarde.yaml`, set `site.title`, `site.description`, and `site.url`, and change the homepage hero text and buttons under `homepage.hero`.
-2. Replace the sample courses. Each directory in `content/courses/` is one course:
-   - `_index.md` is the course overview. Its `title`, `description`, and `icon` appear in the course switcher.
-   - `announcements.md` and `schedule.md` hold the course's news and weekly plan, listed first in its sidebar. Each week in the schedule is titled with its topic and lists its dates, a guiding question, and an icon per item (lesson, lab, assignment, in class).
-   - The "Course info" card at the end of `_index.md` holds the instructor's contact details and office hours.
-   - Each other `.md` file is a lesson. Set `sidebar.order` to control the lesson order.
-   - `sidebar.badge` adds a label such as "Beginner" or "Assignment" next to an entry in the sidebar.
-3. Replace the sample labs. `content/labs/<course>/<lab>/` holds one lab: its `_index.md` is the lab introduction (with optional `learning_objectives`), and each step is a separate page ordered with `sidebar.order`.
-4. Update `content/announcements.md`, the course links in `content/_index.md`, and the banners under `plugins.config.announcements` in `sarde.yaml`.
+The [Course Template guide](https://getsarde.github.io/sarde/docs/teaching/course-template/) in the Sarde docs walks through the site and how to change it:
 
-### Long courses
-
-The sample schedules use a timeline that is always open, which reads well for a few weeks. For a full semester, a collapsible list keeps the page short: put each week in a `:::details` block titled with its topic, inside an `:::accordion(independent)`, and add `open` to the current week:
-
-```markdown
-:::accordion(independent)
-:::details[Week 1: HTML structure]
-- :icon[calendar] Sep 7 to 13
-- :icon[book-open] [HTML Basics](/courses/web-fundamentals/html-basics/)
-:::
-:::details[Week 2: CSS layout] open
-- :icon[calendar] Sep 14 to 20
-- :icon[book-open] [CSS Layout](/courses/web-fundamentals/css-layout/)
-:::
-:::
-```
-
-Lessons, assignments, and lab pages include a "Replace this with..." note in their opening paragraph. Search for that phrase to find sample text you haven't replaced yet.
+- [What's in the template](https://getsarde.github.io/sarde/docs/teaching/course-template/#what-s-in-the-template): every file and what it is for
+- [Courses](https://getsarde.github.io/sarde/docs/teaching/course-template/#courses): course overviews, the order of pages in a course, assignments, and the course catalog
+- [Schedules](https://getsarde.github.io/sarde/docs/teaching/course-template/#schedules): the weekly timeline, and collapsible weeks for a full semester
+- [Announcements](https://getsarde.github.io/sarde/docs/teaching/course-template/#announcements): course news, site-wide news, and a banner for one course
+- [Replace the sample content](https://getsarde.github.io/sarde/docs/teaching/course-template/#replace-the-sample-content): a checklist for making the site your own
 
 ## Publish on GitHub Pages
 
-The template includes a GitHub Actions workflow, `.github/workflows/deploy.yml`, that builds the site and publishes it to GitHub Pages on every push to `main`.
-
-1. Push your copy of the template to a GitHub repository.
-2. In the repository, open **Settings > Pages** and set **Source** to **GitHub Actions**.
-3. Push to `main`, or run the workflow from the **Actions** tab.
-
-The site is published at `https://<owner>.github.io/<repository>/`. The workflow reads that address from GitHub Pages and passes it to Sarde, so `sarde.yaml` needs no deployment settings, and a custom domain set under **Settings > Pages** works the same way. Until Pages is enabled, the workflow fails. Delete the workflow file if you host the site elsewhere; [Deploying](https://getsarde.github.io/sarde/docs/start-here/deploying/) covers other hosts.
-
-## Learn more
-
-- [Labs](https://getsarde.github.io/sarde/docs/teaching/labs/): lab structure, numbering, and progress
-- [Tabbed navigation](https://getsarde.github.io/sarde/docs/guides/tabbed-navigation/): how the course switcher and course sidebars work
-- [Frontmatter reference](https://getsarde.github.io/sarde/docs/reference/frontmatter/): every page field, including `sidebar.order` and `sidebar.badge`
+`.github/workflows/deploy.yml` publishes the site to GitHub Pages on every push to `main`. In the repository, open **Settings > Pages** and set **Source** to **GitHub Actions**; until then the workflow fails. [Publish on GitHub Pages](https://getsarde.github.io/sarde/docs/teaching/course-template/#publish-on-github-pages) covers the details and other hosts.
 
 ## License
 
