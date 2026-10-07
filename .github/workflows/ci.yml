@@ -1,0 +1,93 @@
+name: CI
+
+# Every template folder must build with the Sarde release it is meant for.
+# Pushes and pull requests build with the latest release, which is what
+# `sarde new site --template <name>` installs for most users. A weekly run
+# builds with Sarde's main branch to catch engine changes before they ship.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  templates:
+    name: List template folders
+    runs-on: ubuntu-latest
+    outputs:
+      folders: ${{ steps.list.outputs.folders }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: list
+        # A template is a top-level folder with a sarde.yaml.
+        run: |
+          folders=$(for f in */sarde.yaml; do dirname "$f"; done | jq -R . | jq -sc .)
+          echo "folders=$folders" >> "$GITHUB_OUTPUT"
+          echo "Templates: $folders"
+
+  build:
+    name: Build ${{ matrix.template }} with Sarde ${{ matrix.sarde }}
+    needs: templates
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        template: ${{ fromJson(needs.templates.outputs.folders) }}
+        sarde: [latest]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install Sarde and build the template
+        uses: getsarde/action@v1
+        with:
+          path: ${{ matrix.template }}
+          version: ${{ matrix.sarde }}
+          upload-pages-artifact: "false"
+
+      - name: Check fenced block syntax
+        run: sarde check-syntax ${{ matrix.template }}
+
+      # The template ships its own kazari.config.yaml so it can turn on the
+      # per-block theme toggle. Everything else must match what
+      # `sarde new site` scaffolds, so fixes to the scaffold reach the
+      # template.
+      - name: Kazari config tracks the scaffold
+        run: |
+          sarde new site scaffold-check --quiet
+          sed 's/themeToggleButton: false/themeToggleButton: true/' scaffold-check/kazari.config.yaml > expected.yaml
+          if ! diff -u expected.yaml "${{ matrix.template }}/kazari.config.yaml"; then
+            echo "::error::${{ matrix.template }}/kazari.config.yaml differs from the scaffold config beyond themeToggleButton"
+            exit 1
+          fi
+
+  build-with-sarde-main:
+    name: Build ${{ matrix.template }} with Sarde main
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: templates
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        template: ${{ fromJson(needs.templates.outputs.folders) }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Install Sarde from main
+        run: go install github.com/getsarde/sarde/cmd/sarde@main
+      - name: Build the template
+        run: sarde build ${{ matrix.template }}
+      - name: Check fenced block syntax
+        run: sarde check-syntax ${{ matrix.template }}

@@ -37,12 +37,7 @@ jobs:
           echo "SARDE_SITE_URL=$PAGES_ORIGIN" >> "$GITHUB_ENV"
           echo "SARDE_BUILD_BASE_PATH=$PAGES_BASE_PATH/" >> "$GITHUB_ENV"
 
-      # The demo is the course template itself, so build that folder. A site
-      # created with `sarde new site --template course` has the template at
-      # its root and uses the copy of this workflow inside course/.github/.
       - uses: getsarde/action@v1
-        with:
-          path: course
 
   deploy:
     needs: build
