@@ -1,9 +1,11 @@
 name: CI
 
 # Every template folder must build with the Sarde release it is meant for.
-# Pushes and pull requests build with the latest release, which is what
-# `sarde new site --template <name>` installs for most users. A weekly run
-# builds with Sarde's main branch to catch engine changes before they ship.
+# The latest release is what `sarde new site --template <name>` installs for
+# most users and what the demo deploys with, so each template must build with
+# it. The main branch of this repository tracks Sarde's main branch, so the
+# scaffold drift check runs against a Sarde built from main; a weekly run
+# repeats it to catch engine changes between pushes.
 
 on:
   push:
@@ -56,22 +58,8 @@ jobs:
       - name: Check fenced block syntax
         run: sarde check-syntax ${{ matrix.template }}
 
-      # The template ships its own kazari.config.yaml so it can turn on the
-      # per-block theme toggle. Everything else must match what
-      # `sarde new site` scaffolds, so fixes to the scaffold reach the
-      # template.
-      - name: Kazari config tracks the scaffold
-        run: |
-          sarde new site scaffold-check --quiet
-          sed 's/themeToggleButton: false/themeToggleButton: true/' scaffold-check/kazari.config.yaml > expected.yaml
-          if ! diff -u expected.yaml "${{ matrix.template }}/kazari.config.yaml"; then
-            echo "::error::${{ matrix.template }}/kazari.config.yaml differs from the scaffold config beyond themeToggleButton"
-            exit 1
-          fi
-
   build-with-sarde-main:
     name: Build ${{ matrix.template }} with Sarde main
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     needs: templates
     runs-on: ubuntu-latest
     strategy:
@@ -91,3 +79,16 @@ jobs:
         run: sarde build ${{ matrix.template }}
       - name: Check fenced block syntax
         run: sarde check-syntax ${{ matrix.template }}
+
+      # The template ships its own kazari.config.yaml so it can turn on the
+      # per-block theme toggle. Everything else must match what
+      # `sarde new site` scaffolds, so fixes to the scaffold reach the
+      # template. Checked against Sarde main, which this branch tracks.
+      - name: Kazari config tracks the scaffold
+        run: |
+          sarde new site scaffold-check --quiet
+          sed 's/themeToggleButton: false/themeToggleButton: true/' scaffold-check/kazari.config.yaml > expected.yaml
+          if ! diff -u expected.yaml "${{ matrix.template }}/kazari.config.yaml"; then
+            echo "::error::${{ matrix.template }}/kazari.config.yaml differs from the scaffold config beyond themeToggleButton"
+            exit 1
+          fi
